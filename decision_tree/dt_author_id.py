@@ -19,13 +19,22 @@ from email_preprocess import preprocess
 ### labels_train and labels_test are the corresponding item labels
 features_train, features_test, labels_train, labels_test = preprocess()
 
+print "Number of features: ", str(len(features_train[0]))
 
+from sklearn import tree
 
+classifier = tree.DecisionTreeClassifier(min_samples_split=40)
 
-#########################################################
-### your code goes here ###
+t0 = time()
+classifier.fit(features_train, labels_train)
+print "Training time: ", str(round(time()-t0, 3))
 
+t1 = time()
+prediction = classifier.predict(features_test)
+print "Prediction time: ", str(round(time()-t1, 3))
 
-#########################################################
+from sklearn.metrics import accuracy_score
 
+accuracy = accuracy_score(prediction, labels_test)
+print "Accuracy: ", str(accuracy)
 
