@@ -24,21 +24,35 @@ plt.scatter(grade_slow, bumpy_slow, color = "r", label="slow")
 plt.legend()
 plt.xlabel("bumpiness")
 plt.ylabel("grade")
-plt.show()
+#plt.show()
+
 ################################################################################
 
+print "Choose an algorithm to test:-\n \
+	1. kNN\n \
+	2. AdaBoost\n \
+	3. Random Forest"
+choice = int(raw_input("Enter your choice here: "))
 
-### your code here!  name your classifier object clf if you want the 
-### visualization code (prettyPicture) to show you the decision boundary
+from sklearn.metrics import accuracy_score
 
+if choice == 1:
+	from sklearn import neighbors
+	clf = neighbors.KNeighborsClassifier(algorithm="auto", weights="distance", n_neighbors=15)
+elif choice == 2:
+	from sklearn import ensemble
+	clf = ensemble.AdaBoostClassifier(n_estimators=25, learning_rate=0.5)
+elif choice == 3:
+	from sklearn import ensemble
+	clf = ensemble.RandomForestClassifier(n_estimators=50, max_features="log2")
 
-
-
-
-
-
+clf.fit(features_train, labels_train)
+prediction = clf.predict(features_test)
+accuracy = accuracy_score(prediction, labels_test)
+print "Accuracy: ", str(round(accuracy*100, 3))
 
 try:
-    prettyPicture(clf, features_test, labels_test)
+	print "Drawing prettyPicture..."
+	prettyPicture(clf, features_test, labels_test, choice)
 except NameError:
-    pass
+	pass
