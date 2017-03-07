@@ -19,4 +19,24 @@ import pickle
 
 enron_data = pickle.load(open("../final_project/final_project_dataset.pkl", "r"))
 
+print "Total number of data points: ", str(len(enron_data))
 
+for key in enron_data:
+	value = enron_data[key]
+	print "Total number of features for each data point: ", str(len(value))
+	break
+
+count = 0
+for key in enron_data:
+	if enron_data[key]["poi"] == 1:
+		count += 1
+		continue
+print "Number of POIs in the dataset: ", str(count)
+
+for k in enron_data:
+	if "PRENTICE" in k:
+		print "Prentice: ", str(enron_data[k]["total_stock_value"])
+	if "COLWELL" in k:
+		print "Colwell: ", str(enron_data[k]["from_this_person_to_poi"])
+	if "SKILLING" in k:
+		print "Skilling: ", str(enron_data[k]["exercised_stock_options"])
