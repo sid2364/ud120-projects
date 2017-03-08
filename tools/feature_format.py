@@ -70,9 +70,15 @@ def featureFormat( dictionary, features, remove_NaN=True, remove_all_zeroes=True
                 print "error: key ", feature, " not present"
                 return
             value = dictionary[key][feature]
+            ### To insert 'name' or key of dictionary instead of a True/False for 'poi'
+            ###if feature == "poi":
+            ###    value = key
             if value=="NaN" and remove_NaN:
                 value = 0
-            tmp_list.append( float(value) )
+            if not isinstance(value, str):
+                tmp_list.append( float(value) )
+            else:
+                tmp_list.append(value)
 
         # Logic for deciding whether or not to add the data point.
         append = True
@@ -81,7 +87,7 @@ def featureFormat( dictionary, features, remove_NaN=True, remove_all_zeroes=True
             test_list = tmp_list[1:]
         else:
             test_list = tmp_list
-        ### if all features are zero and you want to remove
+        ## if all features are zero and you want to remove
         ### data points that are all zero, do that here
         if remove_all_zeroes:
             append = False
