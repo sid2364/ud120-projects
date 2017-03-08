@@ -40,3 +40,22 @@ for k in enron_data:
 		print "Colwell: ", str(enron_data[k]["from_this_person_to_poi"])
 	if "SKILLING" in k:
 		print "Skilling: ", str(enron_data[k]["exercised_stock_options"])
+	
+print "\nTotal payments:-"
+for k in enron_data:
+	if "SKILLING" in k:
+		print "Jeffrey Skilling: ", str(enron_data[k]["total_payments"])
+
+	if "KENNETH" in k:
+		print "Kenneth Lay: ", str(enron_data[k]["total_payments"])
+	if "FASTOW" in k:
+		print "Andrew Fastow: ", str(enron_data[k]["total_payments"])
+
+print "\nKnown salaries and email addresses:-"
+salaries, emails = 0, 0
+for k in enron_data:
+	if enron_data[k]["salary"] != "NaN":
+		salaries += 1
+	if enron_data[k]["email_address"] != "NaN":
+		emails += 1
+print "Salaries: ", salaries, " - Email addresses: ", emails
